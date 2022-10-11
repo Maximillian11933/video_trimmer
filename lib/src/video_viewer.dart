@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 
 import 'trimmer.dart';
 
@@ -50,7 +50,7 @@ class VideoViewer extends StatefulWidget {
 class _VideoViewerState extends State<VideoViewer> {
   /// Quick access to VideoPlayerController, only not null after [TrimmerEvent.initialized]
   /// has been emitted.
-  VideoPlayerController? get videoPlayerController =>
+  CachedVideoPlayerController? get videoPlayerController =>
       widget.trimmer.videoPlayerController;
 
   @override
@@ -82,7 +82,7 @@ class _VideoViewerState extends State<VideoViewer> {
                             color: widget.borderColor,
                           ),
                         ),
-                        child: VideoPlayer(_controller),
+                        child: CachedVideoPlayer(_controller),
                       )
                     : const Center(
                         child: CircularProgressIndicator(

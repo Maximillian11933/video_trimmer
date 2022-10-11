@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:video_player/video_player.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:video_trimmer/src/file_formats.dart';
 import 'package:video_trimmer/src/storage_dir.dart';
 
@@ -26,9 +26,9 @@ class Trimmer {
   final StreamController<TrimmerEvent> _controller =
       StreamController<TrimmerEvent>.broadcast();
 
-  VideoPlayerController? _videoPlayerController;
+  CachedVideoPlayerController? _videoPlayerController;
 
-  VideoPlayerController? get videoPlayerController => _videoPlayerController;
+  CachedVideoPlayerController? get videoPlayerController => _videoPlayerController;
 
   File? currentVideoFile;
 
@@ -41,7 +41,7 @@ class Trimmer {
   Future<void> loadVideo({required File videoFile}) async {
     currentVideoFile = videoFile;
     if (videoFile.existsSync()) {
-      _videoPlayerController = VideoPlayerController.file(currentVideoFile!);
+      _videoPlayerController = CachedVideoPlayerController.file(currentVideoFile!);
       await _videoPlayerController!.initialize().then((_) {
         _controller.add(TrimmerEvent.initialized);
       });
